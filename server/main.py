@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import user, board, comment, websocket
+from .routers import user, board
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 app = FastAPI()
 app.add_middleware(TrustedHostMiddleware, allowed_hosts=["*"])

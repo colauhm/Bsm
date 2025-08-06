@@ -5,3 +5,5 @@ from typing import Optional
 from ..database.query import execute_sql_query
 from ..controllers.session import getSessionData
 from datetime import datetime, timedelta
+
+router = APIRouter(prefix="/api")
