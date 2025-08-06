@@ -10,22 +10,34 @@
 <body>
 
   <!-- 상단 배너 -->
-  <div class="banner">BSM</div>
 
   <!-- 중앙 콘텐츠 박스 -->
   <div class="container">
-    
+  
+  <div class="banner">BSM</div>
     <!-- 시간 단위 선택 -->
+    <div class="selector">
+
+    
     <div class="range-selector">
-      <label>시간 단위:
-        <select id="timeUnit">
-          <option value="minute">1분</option>
-          <option value="hour">1시간</option>
-          <option value="day">1일</option>
-        </select>
+      <label id = "timeUnitGroup">
+        <div id="timeUnit">
+          <button value="minute">1m</button>
+          <button value="hour">1h</button>
+          <button value="day">1d</button>
+        </div>
       </label>
     </div>
-
+    <div class="tank-selector">
+      <label id = "tankChoice">
+        <div id="tankGroup">
+          <button value="tank_1">first</button>
+          <button value="tank_2">middle</button>
+          <button value="tank_3">last</button>
+        </div>
+      </label>
+    </div>
+    </div>
     <!-- PH 그래프 -->
     <div class="chart-container">
       <canvas id="phChart"></canvas>

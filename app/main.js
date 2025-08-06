@@ -123,14 +123,14 @@ function createChart(canvasId, label, min, max, color, barValues) {
       maintainAspectRatio: false, // 부모 div의 height에 맞추기
       animation: false,
       plugins: {
-        title: { display: true, text: `${label} 값` },
+        title: { display: true },
         horizontalBars: {
           barValues,
           color
         }
       },
       scales: {
-        x: { display: true, title: { display: true, text: '시간' } },
+        x: { display: true, title: { display: true} },
         y: { min, max }
       }
     },

@@ -6,12 +6,19 @@ body {
   flex-direction: column;
   align-items: center;
 }
-
-.banner {
+.selector{
+  display: flex;
+  justify-content: space-between;
+}
+label{
   width: 100%;
+}
+.banner {
+  margin-bottom: 20px;
+  border-radius: 15px; 
   height: auto; /* 👈 혹시 height: 0; 되어있지 않은지 확인 */
-  background-color: #333;
-  color: white;
+  background-color: #ffffff;
+  color: black;
   text-align: center;
   padding: 20px;
   font-size: 24px;
@@ -19,10 +26,13 @@ body {
   letter-spacing: 2px;
   z-index: 10; /* 혹시 가려질 경우 대비 */
   position: relative;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+
 }
 
 
 .container {
+  
   background: white;
   padding: 20px 30px;
   margin-top: 30px;
@@ -39,8 +49,30 @@ body {
   margin-bottom: 40px;
 }
 
-.range-selector {
+.range-selector ,.tank-selector{
+  border-radius: 15px;
+  display: flex;
+  width:40%;
   margin-bottom: 20px;
+  color: black;
+  text-align: center;
+  font-size: 20px;
+  letter-spacing: 2px;
+  z-index: 10; /* 혹시 가려질 경우 대비 */
+  position: relative;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#timeUnit, #tankGroup{
+  display: flex;
+}
+button{
+  height: 100%;
+  flex: 1;
+  background-color: #ffffff00;
+  border: none;
+  cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 select {
