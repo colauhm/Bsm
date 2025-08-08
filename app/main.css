@@ -61,18 +61,25 @@ label{
   z-index: 10; /* 혹시 가려질 경우 대비 */
   position: relative;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
 }
 
 #timeUnit, #tankGroup{
   display: flex;
+  
 }
 button{
+  border-radius: 0;
   height: 100%;
   flex: 1;
   background-color: #ffffff00;
   border: none;
   cursor: pointer;
-    transition: background-color 0.3s;
+  transition: background-color 0.3s;
+}
+
+button.active{
+  background-color: #6f6f6f;
 }
 
 select {

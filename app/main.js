@@ -1,5 +1,36 @@
 let timeUnit = 'minute';
+let tankGroup = 'tank_1'
+const timeUintButtons = document.getElementById('tmieUint');
+const tankGroupButtons = document.getElementById('tankGroup');
 
+const timeButtons = document.querySelectorAll('#timeUnit button');
+timeButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    // 모든 버튼의 active 클래스 제거
+    timeButtons.forEach(btn => btn.classList.remove('active'));
+    
+    // 클릭된 버튼에 active 클래스 추가
+    button.classList.add('active');
+
+    // unit 변수에 현재 value 저장
+    timeUnit = button.value;
+    console.log('Selected unit:', timeUnit);
+  });
+});
+const tankButtons = document.querySelectorAll('#tankGroup button');
+tankButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    // 모든 버튼의 active 클래스 제거
+    tankButtons.forEach(btn => btn.classList.remove('active'));
+    
+    // 클릭된 버튼에 active 클래스 추가
+    button.classList.add('active');
+
+    // unit 변수에 현재 value 저장
+    tankGroup = button.value;
+    console.log('Selected unit:', tankGroup);
+  });
+});
 const horizontalBarPlugin = {
   id: 'horizontalBarPlugin',
   afterInit(chart) {
@@ -139,7 +170,7 @@ function createChart(canvasId, label, min, max, color, barValues) {
 }
 
 function updateAllCharts() {
-  timeUnit = document.getElementById("timeUnit").value;
+  // timeUnit = document.getElementById("timeUnit").value;
   phChart.data = generateData("PH");
   tempChart.data = generateData("온도");
   phChart.update();
@@ -151,5 +182,6 @@ document.addEventListener('DOMContentLoaded', () => {
   phChart = createChart("phChart", "PH", 4, 10, "red", [6.0, 8.0]);
   tempChart = createChart("tempChart", "온도", 10, 40, "blue", [22.0, 28.0]);
 
-  document.getElementById("timeUnit").addEventListener("change", updateAllCharts);
+  document.getElementById("timeUnit").addEventListener("click", updateAllCharts);
+  document.getElementById("tankGroup").addEventListener("click", updateAllCharts);
 });
