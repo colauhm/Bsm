@@ -106,3 +106,13 @@ export async function getBoard(boardId, answer) {
     //console.log(data);
     return data;
 }
+export async function getData(label, tank, timeUnit) {
+    const response = await fetch(
+        ServerUrl() + `/getData?label=${label}&tank=${tank}&time_unit=${timeUnit}`
+    );
+    if (!response.ok) {
+        throw new Error("서버 오류: " + response.status);
+    }
+    const data = await response.json();
+    return data;
+}

@@ -1,3 +1,5 @@
+//import { getData } from "./utils/function.js";
+
 let timeUnit = 'minute';
 let tankGroup = 'tank_1'
 const timeUintButtons = document.getElementById('tmieUint');
@@ -114,7 +116,7 @@ function generateLabels() {
   switch (timeUnit) {
     case 'minute': count = 60; interval = 1000; break;
     case 'hour': count = 60; interval = 60 * 1000; break;
-    case 'day': count = 24; interval = 60 * 60 * 1000; break;
+    case 'day': count = 60; interval = 60 * 60 * 1000; break;
   }
   return Array.from({ length: count }, (_, i) => {
     const time = new Date(now - (count - i) * interval);
@@ -122,9 +124,9 @@ function generateLabels() {
   });
 }
 
-function generateData(label) {
-  const count = timeUnit === 'day' ? 24 : 60;
-
+function generateData(label, tank) {
+  const count = 60;
+  //const value = await getData("PH", "tank1", "hour");
   // 실제 데이터를 여기에 연동하세요
   // fetch('/api/data') 등으로 받아와서 사용 가능
   const dummyValues = Array.from({ length: count }, () =>
@@ -185,3 +187,4 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById("timeUnit").addEventListener("click", updateAllCharts);
   document.getElementById("tankGroup").addEventListener("click", updateAllCharts);
 });
+

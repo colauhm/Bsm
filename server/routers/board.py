@@ -1,5 +1,5 @@
 import aiomysql
-from fastapi import APIRouter, Cookie, Header
+from fastapi import APIRouter, Cookie, Header, HTTPException
 from typing import Annotated
 from pydantic import BaseModel
 from typing import Optional
@@ -9,8 +9,8 @@ from datetime import datetime, timedelta
 
 router = APIRouter(prefix="/api")
 
-@router.get('/getData')
-async def getData(conn, label, tank, time_unit):
+@router.get("/getData")
+async def get_data(label: str, tank: str, time_unit: str):
     sql = """
     WITH ranked AS (
         SELECT 
@@ -30,9 +30,10 @@ async def getData(conn, label, tank, time_unit):
     ORDER BY time DESC;
     """
 
-    async with conn.cursor(aiomysql.DictCursor) as cur:
-        await cur.execute(sql, (label, tank, time_unit, time_unit, time_unit))
-        rows = await cur.fetchall()
+    try:
+        rows = await execute_sql_query(sql, (label, tank, time_unit, time_unit, time_unit))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
     # 🔧 후처리: 30개 미만이면 마지막 값으로 채움
     if rows:
