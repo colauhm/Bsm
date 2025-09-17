@@ -1,4 +1,3 @@
-import aiomysql
 from fastapi import APIRouter, Cookie, Header, HTTPException
 from typing import Annotated
 from pydantic import BaseModel
