@@ -41,10 +41,14 @@ const horizontalBarPlugin = {
 
     function getMouseY(e) {
       const rect = chart.canvas.getBoundingClientRect();
-      return e.clientY - rect.top;
+      if (e.touches && e.touches.length > 0) {
+        return e.touches[0].clientY - rect.top; // 모바일 터치
+      } else {
+        return e.clientY - rect.top; // 데스크탑 마우스
+      }
     }
 
-    chart.canvas.addEventListener('mousedown', (e) => {
+    function startDrag(e) {
       const mouseY = getMouseY(e);
       const yAxis = chart.scales.y;
       const valToY = val => yAxis.getPixelForValue(val);
@@ -53,21 +57,32 @@ const horizontalBarPlugin = {
           bars.dragIndex = i;
         }
       });
-    });
+    }
 
-    chart.canvas.addEventListener('mousemove', (e) => {
+    function moveDrag(e) {
       if (bars.dragIndex !== null) {
+        e.preventDefault(); // 화면 스크롤 방지
         const mouseY = getMouseY(e);
         const yAxis = chart.scales.y;
         const val = yAxis.getValueForPixel(mouseY);
         bars.barValues[bars.dragIndex] = Math.max(yAxis.min, Math.min(yAxis.max, val));
         chart.draw();
       }
-    });
+    }
 
-    window.addEventListener('mouseup', () => {
+    function endDrag() {
       bars.dragIndex = null;
-    });
+    }
+
+    // ✅ 데스크탑 이벤트
+    chart.canvas.addEventListener('mousedown', startDrag);
+    chart.canvas.addEventListener('mousemove', moveDrag);
+    window.addEventListener('mouseup', endDrag);
+
+    // ✅ 모바일 이벤트
+    chart.canvas.addEventListener('touchstart', startDrag, { passive: false });
+    chart.canvas.addEventListener('touchmove', moveDrag, { passive: false });
+    window.addEventListener('touchend', endDrag);
   },
 
   afterDatasetsDraw(chart) {
@@ -109,6 +124,7 @@ const horizontalBarPlugin = {
     });
   }
 };
+
 
 function generateLabels() {
   const now = Date.now();
