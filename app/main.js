@@ -148,7 +148,7 @@ function generateData(label, tank) {
   const dummyValues = Array.from({ length: count }, () =>
     label === 'PH' ? Math.random() * 2 + 6 : Math.random() * 10 + 20
   );
-
+  console.log(dummyValues);
   return {
     labels: generateLabels(),
     datasets: [{
