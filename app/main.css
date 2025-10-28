@@ -88,3 +88,54 @@ select {
   padding: 5px 10px;
   font-size: 16px;
 }
+/*
+ * -------------------------
+ * 📝 전역 경고 다이얼로그 스타일
+ * -------------------------
+ */
+
+/* 다이얼로그 기본 스타일 */
+#global-alert-dialog {
+  position: fixed; /* 화면(Viewport) 기준으로 위치 고정 */
+  top: 20px;       /* 화면 상단에서 20px 아래 */
+  left: 50%;       /* 화면 좌우 중앙 */
+  transform: translateX(-50%); /* 정확한 중앙 정렬 */
+  
+  padding: 15px 25px; /* 내부 여백 */
+  background-color: #ff3b30; /* 눈에 띄는 붉은색 */
+  color: white; /* 흰색 글씨 */
+  border: 1px solid #c00;
+  border-radius: 8px; /* 둥근 모서리 */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* 그림자 효과 */
+  
+  z-index: 1000; /* 다른 모든 요소 위에 표시 */
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* ⚠️ 깜빡이는 애니메이션 클래스 */
+.alert-dialog-visible {
+  display: block; /* 보이도록 설정 */
+  
+  /* 'blink-animation' 키프레임을 1.5초 주기로 무한 반복 */
+  animation: blink-animation 1.5s infinite;
+}
+
+/* 숨김 클래스 */
+.alert-dialog-hidden {
+  display: none; /* 숨김 */
+}
+
+/* ⚠️ 깜빡임 애니메이션 (Keyframes) 정의 */
+@keyframes blink-animation {
+  0% { 
+    opacity: 1; /* 0% (시작): 완전 불투명 */
+  }
+  50% { 
+    opacity: 0.2; /* 50% (중간): 거의 투명 */
+  }
+  100% {
+    opacity: 1; /* 100% (끝): 다시 완전 불투명 */
+  }
+}
