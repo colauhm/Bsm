@@ -9,7 +9,7 @@ let allSensorData = [];
  */
 async function loadSensorData() {
     try {
-        const response = await fetch('/project/returns/ds18b20/sensor_Value.csv');
+        const response = await fetch('/sensor_Value.csv');
         if (!response.ok) {
             throw new Error(`[Error] CSV 파일을 불러올 수 없습니다: ${response.statusText}`);
         }
@@ -41,24 +41,37 @@ async function loadSensorData() {
  */
 function checkDataAgainstBars(chart, alertElementId) {
     if (!chart || !chart.data.datasets || chart.data.datasets.length === 0) {
-        return; // 차트나 데이터가 준비되지 않았으면 종료
+        return; 
     }
 
     const data = chart.data.datasets[0].data;
     const barValues = chart.options.plugins.horizontalBars.barValues;
     
-    // 바의 최소, 최대값 계산
     const minBar = Math.min(...barValues);
     const maxBar = Math.max(...barValues);
 
-    // 데이터 중 하나라도 범위를 벗어나는지 확인 (null 값은 무시)
     const isOutOfRange = data.some(val => val !== null && (val < minBar || val > maxBar));
 
     const alertEl = document.getElementById(alertElementId);
     if (alertEl) {
-        // 범위 이탈 시 경고 표시, 아니면 숨김
         alertEl.style.display = isOutOfRange ? 'block' : 'none';
     }
+
+    // ⬇️⬇️⬇️ [이 부분이 핵심] ⬇️⬇️⬇️
+    // React Native 앱 환경에서 실행 중인지 확인
+    if (window.ReactNativeWebView) {
+        // 앱으로 전송할 메시지 (JSON 형식)
+        const message = {
+            type: 'sensorAlert', // 메시지 유형
+            chartId: alertElementId, // 'phAlert' 또는 'tempAlert'
+            status: isOutOfRange ? 'outOfRange' : 'inRange'
+        };
+        
+        // React Native 앱으로 메시지 전송
+        window.ReactNativeWebView.postMessage(JSON.stringify(message));
+        console.log('React Native 앱으로 메시지 전송:', message);
+    }
+    // ⬆⬆⬆ [여기까지 추가] ⬆⬆⬆
 }
 
 
