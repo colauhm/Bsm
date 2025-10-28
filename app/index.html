@@ -9,13 +9,9 @@
 </head>
 <body>
 
-  <!-- 상단 배너 -->
-
-  <!-- 중앙 콘텐츠 박스 -->
   <div class="container">
   
   <div class="banner">BSM</div>
-    <!-- 시간 단위 선택 -->
     <div class="selector">
 
     
@@ -38,15 +34,23 @@
       </label>
     </div>
     </div>
-    <!-- PH 그래프 -->
+
     <div class="chart-container">
       <canvas id="phChart"></canvas>
     </div>
 
-    <!-- 온도 그래프 -->
+    <div id="phAlert" style="display:none; color: red; font-weight: bold; text-align: center; margin-bottom: 15px;">
+        경고: PH 값이 설정 범위를 이탈했습니다!
+    </div>
+
     <div class="chart-container">
       <canvas id="tempChart"></canvas>
     </div>
+
+    <div id="tempAlert" style="display:none; color: red; font-weight: bold; text-align: center; margin-bottom: 15px;">
+        경고: 온도가 설정 범위를 이탈했습니다!
+    </div>
+
   </div>
 
 </body>
